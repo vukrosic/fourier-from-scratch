@@ -1,0 +1,105 @@
+
+=== step1_heat.py
+one tick = 1.087 seconds of real iron
+ticks  minutes  1 cm from the end  25 cm in  the centre
+    0      0.0              100.0     100.0       100.0
+   10      0.2               33.6     100.0       100.0
+  100      1.8               11.2     100.0       100.0
+ 1000     18.1                3.6      73.6        94.9
+ 4000     72.5                1.5      33.6        47.4
+10000    181.2                0.3       7.6        10.8
+the centre first drops below 99.9 at tick 414 (7.5 minutes)
+the centre reaches 50 degrees at tick 3787 (69 minutes)
+a hill with a zigzag: roughness 3030; after 50 ticks (54 seconds): 118
+the top of the hill in that time: 78.5 -> 59.0 degrees
+
+=== step2_waves.py
+humps  left after 200 ticks  shape change  half-life        speed
+    1                 95.2%         4e-14     2809 ticks =  50.9 min    1.0x
+    2                 82.1%         7e-14      702 ticks =  12.7 min    4.0x
+    3                 64.1%         9e-14      312 ticks =   5.7 min    9.0x
+    5                 29.1%         2e-13      112 ticks =   2.0 min   25.0x
+   10                  0.7%         9e-12       28 ticks =   0.5 min  100.4x
+a tent (not a wave) after 200 ticks: 84.1% left at the top, shape change 11.9 degrees
+
+=== step3_build.py
+one wave of height 100: average miss 36.3 degrees
+best height of the 1-hump wave:  127.3   average miss now 34.30 degrees
+best height of the 2-hump wave:    0.0   average miss now 34.30 degrees
+best height of the 3-hump wave:   42.4   average miss now 21.81 degrees
+best height of the 4-hump wave:    0.0   average miss now 21.81 degrees
+best height of the 5-hump wave:   25.5   average miss now 16.34 degrees
+try every wave again, with the others in place: [127.3, 0.0, 42.4, 0.0, 25.5]
+nothing moved: True
+
+=== step4_recipe.py
+the flat bar, waves 1 to 7: 127.32 -0.00 42.44 -0.00 25.46 -0.00 18.19
+height times number of humps: 127.32 127.32 127.32 127.32 127.33
+400 / pi = 127.32
+a drawn curve, waves 1 to 7: 60.48 -0.81 15.98 23.90 -12.00 -6.52 6.43
+waves  average miss, flat bar  average miss, drawn curve
+    1                   34.31                      19.88
+    5                   16.34                       6.24
+   20                    6.47                       1.30
+   80                    2.07                       0.43
+  320                    0.63                       0.13
+
+=== step5_solve.py
+ticks   minutes  centre by waiting  centre by waves  largest difference
+   10       0.2           100.0000         100.0000               3e-13
+  100       1.8           100.0000         100.0000               3e-13
+ 1000      18.1            94.9281          94.9281               2e-12
+ 4000      72.5            47.4429          47.4429               4e-12
+10000     181.2            10.7957          10.7957               2e-12
+work for 3 hours of cooling: 990,000 cell updates by waiting, 9,801 multiplications by waves
+what 1,000 ticks (18 minutes) leave of each wave: 1: 78.1% 3: 10.8% 5: 0.2% 7: 0.0% 9: 0.0%
+share of the 1-hump wave in the bar, by squared height:
+  flat    start  81.9%   after 18 min  99.79%   after 72 min 100.0000%
+  drawn   start  76.5%   after 18 min  99.85%   after 72 min  99.9999%
+  jagged  start  88.7%   after 18 min 100.00%   after 72 min 100.0000%
+
+=== step6_spike.py
+ waves  highest value   where        average miss  value at the very end
+    10         117.98   50.00 mm          6.470         0.0
+   100         117.90    5.00 mm          0.944         0.0
+  1000         117.90    0.50 mm          0.133         0.0
+ 10000         117.90    0.05 mm              -         0.0
+too hot by 17.90 degrees = 8.95% of the jump the waves see (from -100 to 100)
+1,000 waves after 0.001 seconds of cooling: highest value on the bar 105.03
+1,000 waves after 0.010 seconds of cooling: highest value on the bar 100.00
+1,000 waves after 0.100 seconds of cooling: highest value on the bar 100.00
+1,000 waves after 1.000 seconds of cooling: highest value on the bar 100.00
+
+=== step7_phone.py
+dialled 1807; noise 3 times as strong as one tone; 800 numbers per key, for example:
+  +0.6 -1.4 +1.9 +2.5 +1.0 +2.1 -0.9 -0.0 +1.7 +4.2
+key   697 Hz   770 Hz   852 Hz   941 Hz  1209 Hz  1336 Hz  1477 Hz   read as
+ ?      1.12     0.18     0.10     0.21     0.88     0.19     0.13   1
+ ?      0.29     0.33     1.32     0.28     0.11     0.91     0.14   8
+ ?      0.33     0.37     0.05     1.01     0.16     1.00     0.18   0
+ ?      0.19     0.06     0.88     0.24     0.84     0.25     0.20   7
+heard: 1807
+noise  1 times one tone: 300 of 300 keys read right
+noise  3 times one tone: 300 of 300 keys read right
+noise 10 times one tone: 129 of 300 keys read right
+noise 20 times one tone:  56 of 300 keys read right
+noise 40 times one tone:  35 of 300 keys read right
+
+=== step8_today.py
+4096 measurements of a phone sound with noise as loud as one tone (0.51 seconds)
+one wave at a time: 16,777,216 multiplications, 7.9 seconds
+the fast way:       24,576 multiplications, 0.046 seconds
+683 times fewer multiplications, 172 times less time; largest difference between the answers 2e-12
+peaks more than 4 times the usual height: 5, at 697 850 939 1213 1340 Hz
+the keys 1, 8, 0, 7, 1 use the tones 697 852 941 1209 1336 Hz
+position codes, 512 numbers each; the longest wave is 60,611 positions long, the shortest 6.28
+distance  alike near position 10  alike near position 1,000
+       1                  0.9731                     0.9731
+       2                  0.9052                     0.9052
+       5                  0.7406                     0.7406
+      10                  0.6789                     0.6789
+      50                  0.5121                     0.5121
+     100                  0.4373                     0.4373
+largest difference between the two columns: 9e-16
+
+all checks passed
